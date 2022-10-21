@@ -1,0 +1,152 @@
+daysTracked = [ 'Wed' , 'Thur' ,  'Fri' ,  'Sat' ,  'Sun' ,  'Mon',  'Tue' ,  'Wed' , 'Thur']
+caloriesConsumed = [3250 , 3300, 5000, 7550, 4000, 5500, 8000, 5000, 6075]
+caloriesBurned = [970, 1020, 780, 1410, 590, "off day", 1450 , "off day", 870]
+workOutHrs = [2, 2, 2, 3, 1, "off day", 3, "off day", 1.5]
+
+
+function setup() {
+  createCanvas(600, 600);
+  
+}
+
+function draw() {
+  
+  background(0);
+
+  grid();
+  
+  numbers();
+  
+  canvasdivide();
+  
+  labels();
+  
+  dayz(25, 195);
+  dayz(25, 395);
+  dayz(25, 595);
+  
+  bargraph(workOutHrs, height-29, 49); // Array, BarY pos, Multiplayer factor
+  
+  bargraph(caloriesBurned, height-229.5, .087 * .91515); // Array, BarY pos, Multiplayer factor
+  
+  bargraph(caloriesConsumed, height-429, .025 * .66); // Array, BarY pos, Multiplayer factor
+  
+}
+
+function canvasdivide(){
+  
+  for(let y = 0; y < 3; y++){
+    push();
+    noFill();
+    stroke(57,255,20);
+    strokeWeight(5);
+    rect(75, y * 200 , 600, 175);
+    pop();
+  }  
+}
+
+function dayz(d, y){
+  
+  fill(57,255,20);
+  textSize(15);
+  
+  for(let z = 0; z < daysTracked.length; z++){
+    d += 60;
+    text(daysTracked[z], d , y);
+  }
+  
+}
+
+function labels(){
+  
+  fill(224,231,34)
+  textSize(15);
+  text("Calories consumed:", 80 , 20);
+  text("Active calories burned:", 80 , 220);
+  text("Hours worked out:", 80 , 420);
+  
+}
+
+function grid(){
+  
+  //grid
+  push();
+  strokeWeight(.1);
+  stroke(255);
+  noFill();
+  for(let x = 0; x < 40; x++){
+    for(let y = 0; y < 40; y++){
+      rect(x * 25, y * 25,25,25);
+    }
+  }
+  pop();
+  
+  push();
+  
+  // In graph grid
+  stroke(255);
+  strokeWeight(2);
+  let x = 0;
+  let spacing = 25;
+  while (x < height) {
+    line(75, x, width, x); //x1,y1,x2,y2
+    x += spacing;
+  }
+  
+  pop();
+}
+  
+function numbers(){
+
+  push();
+  n = 555 // numbers start 
+  c = 37.5 //Text Center 
+  
+  textAlign(CENTER); 
+  
+  //loop 0-5 end offset 
+  // For hours
+  textSize(15);
+  text("0.5", c, n);
+  text("1.0", c, n - 25);
+  text("1.5", c, n - 50);
+  text("2.0", c, n - 75);
+  text("2.5", c, n - 100);
+  text("3.0", c, n - 125);
+  
+  // For active calories
+  text("300", c, n - 200);
+  text("600", c, n - 225);
+  text("900", c, n - 250);
+  text("1200", c, n - 275);
+  text("1500", c, n - 300);
+  text("1800", c, n - 325);
+  
+  // For calories burned
+  text("1500", c, n - 400);
+  text("3000", c, n - 425);
+  text("4500", c, n - 450);
+  text("6000", c, n - 475);
+  text("7500", c, n - 500);
+  text("9000", c, n - 525);
+    
+  pop();
+}
+
+function bargraph(barArray, barY, heightScale){
+  
+  push();
+  
+  let neonPink = color(255, 16, 240)
+  neonPink.setAlpha(150);
+  
+  strokeWeight(3);
+  stroke(217,2,125);
+  fill(neonPink);
+  for(let b = 0; b < barArray.length; b++){
+    rect(90 + (b*60) , barY- barArray[b] * heightScale, 20, barArray[b] * heightScale) //x,y,w,h
+    
+  }
+  
+  pop();
+}
